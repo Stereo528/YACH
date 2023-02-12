@@ -1,7 +1,9 @@
 {
   "yach.midnightconfig.title": "Yet Another Coordinates HUD",
   "yach.midnightconfig.showOnHotbar": "Toggle Display",
-  "yach.midnightconfig.hideWithHudHide": "Enable When GUI Hidden",
+  "yach.midnightconfig.hideInSpectator": "Hide In Spectator Mode",
   "yach.midnightconfig.simpleNotesIntegration": "(WIP) SimpleNotes Integration",
-  "yach.midnightconfig.simpleNotesIntegration.tooltip": "Enables a command from SimpleNotes to save your current XYZ to notes.\nAllows optional text."
+  "yach.midnightconfig.simpleNotesIntegration.tooltip": "Enables a command from SimpleNotes to save your current XYZ to notes.\nAllows optional text.",
+  "key.yach.toggle": "Toggle Display",
+  "key.yach.yach": "YACH"
 }
