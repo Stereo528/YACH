@@ -1,0 +1,108 @@
+plugins {
+	id 'maven-publish'
+	alias libs.plugins.quilt.loom
+	id 'org.ajoberstar.grgit' version '4.1.0'
+}
+
+archivesBaseName = project.archives_base_name
+version = getVersion()
+group = project.maven_group
+
+repositories {
+	maven { url "https://api.modrinth.com/maven" }
+	maven { url "https://maven.terraformersmc.com/" }
+}
+
+// All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
+// See https://docs.gradle.org/current/userguide/platforms.html for information on how version catalogs work.
+dependencies {
+	minecraft libs.minecraft
+
+	mappings loom.layered {
+		mappings "org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:intermediary-v2"
+		officialMojangMappings()
+	}
+	modImplementation libs.quilt.loader
+
+	modImplementation libs.quilted.fabric.api
+	modImplementation libs.bundles.dependencies
+	modLocalRuntime(libs.bundles.dev.mods) { exclude group: "net.fabricmc"; exclude group: "net.fabricmc.fabric-api"; exclude group: "net.fabricmc.loader" }
+}
+
+processResources {
+	inputs.property 'version', version
+
+	filesMatching('quilt.mod.json') {
+		expand "version": version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = 'UTF-8'
+	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
+	it.options.release = 17
+}
+
+java {
+	// Still required by IDEs such as Eclipse and Visual Studio Code
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+
+	// If this mod is going to be a library, then it should also generate Javadocs in order to aid with development.
+	// Uncomment this line to generate them.
+	// withJavadocJar()
+}
+
+jar {
+	filesMatching('LICENSE') {
+		rename '^(LICENSE.*?)(\\..*)?$', "\$1_${archivesBaseName}\$2"
+	}
+}
+
+task buildOrPublish {
+	group = "build"
+	String mavenUser = System.getenv().MAVEN_USER
+	if (mavenUser != null && !mavenUser.isEmpty()) {
+		dependsOn(tasks.getByName("publish"))
+		println("Prepared To Publish to Maven")
+	} else {
+		dependsOn(tasks.getByName("build"))
+		println("Prepared to Build")
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			groupId project.maven_group
+			artifactId "${project.archives_base_name}"
+			version getVersion()
+			from components.java
+		}
+	}
+
+	repositories {
+		maven {
+			url = "https://mvn.devos.one/${System.getenv().PUBLISH_SUFFIX}/"
+			credentials {
+				username = System.getenv().MAVEN_USER
+				password = System.getenv().MAVEN_PASS
+			}
+			authentication { basic(BasicAuthentication) }
+		}
+	}
+}
+String getVersion() {
+	String version = "${project.mod_version}+mc${libs.versions.minecraft.get()}"
+
+	if (findProperty("releaseType") != "stable") {
+		version += "-rev.${grgit.head().abbreviatedId}"
+	}
+
+	return version
+
+}

@@ -1,0 +1,41 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "io.github.stereo528",
+		"id": "example",
+		"version": "${version}",
+		"metadata": {
+			"name": "Example",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+			"contributors": {
+				"Stereo528": "Owner"
+			},
+			"contact": {
+				"issues": "https://github.com/Stereo528/quilt-template-mod/issues",
+				"sources": "https://github.com/Stereo528/quilt-template-mod"
+			},
+			"icon": "assets/example/icon.png"
+		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"init": "io.github.stereo528.example.Example",
+			"client_init": "io.github.stereo528.example.ExampleClient",
+			"modmenu": "io.github.stereo528.example.Config.ModMenuIntegration"
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.17.0-"
+			},
+			{
+				"id": "quilted_fabric_api",
+				"versions": ">=4.0.0-"
+			},
+			{
+				"id": "minecraft",
+				"versions": ">=1.19.3"
+			}
+		]
+	},
+	"mixin": "example.mixins.json"
+}
