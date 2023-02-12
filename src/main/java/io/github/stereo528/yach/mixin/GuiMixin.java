@@ -31,31 +31,25 @@ public class GuiMixin {
 					poseStack.popPose();
 				}
 				else {
+					assert client.player != null;
+					int yOffset;
 					if (client.gameMode.getPlayerMode() == GameType.CREATIVE || client.gameMode.getPlayerMode() == GameType.SPECTATOR && !ModConfig.hideInSpectator) {
-						poseStack.pushPose();
-						assert client.player != null;
-						String x = "X: " + (int) client.player.getX();
-						String y = "Y: " + (int) client.player.getY();
-						String z = "Z: " + (int) client.player.getZ();
-						client.font.drawShadow(poseStack, x, (int) (((this.screenWidth / 2) - (x.length() / 2.0)) - (91 - x.length() / 2.0)), this.screenHeight - 33, 16777215);
-						client.font.drawShadow(poseStack, y, (int) ((this.screenWidth / 2) - (y.length() / 2.0)) - (y.length() * 2), this.screenHeight - 33, 16777215);
-						client.font.drawShadow(poseStack, z, (((this.screenWidth / 2) - z.length()) + (90 - z.length() * 4)), this.screenHeight - 33, 16777215);
-						poseStack.popPose();
+						yOffset = 33;
 					}
 					else {
-						int yOffset = 60;
-						assert client.player != null;
+						yOffset = 60;
 						if (client.player.hasEffect(MobEffects.HEALTH_BOOST) || client.player.hasEffect(MobEffects.ABSORPTION)) yOffset = 65;
-						poseStack.pushPose();
-						assert client.player != null;
-						String x = "X: " + (int) client.player.getX();
-						String y = "Y: " + (int) client.player.getY();
-						String z = "Z: " + (int) client.player.getZ();
-						client.font.drawShadow(poseStack, x, (int) (((this.screenWidth / 2) - (x.length() / 2.0)) - (91 - x.length() / 2.0)), this.screenHeight - yOffset, 16777215);
-						client.font.drawShadow(poseStack, y, (int) ((this.screenWidth / 2) - (y.length() / 2.0)) - (y.length() * 2), this.screenHeight - yOffset, 16777215);
-						client.font.drawShadow(poseStack, z, (((this.screenWidth / 2) - z.length()) + (90 - z.length() * 4)), this.screenHeight - yOffset, 16777215);
-						poseStack.popPose();
 					}
+
+
+					poseStack.pushPose();
+					String x = "X: " + (int) client.player.getX();
+					String y = "Y: " + (int) client.player.getY();
+					String z = "Z: " + (int) client.player.getZ();
+					client.font.drawShadow(poseStack, x, (int) (((this.screenWidth / 2) - (x.length() / 2.0)) - (91 - x.length() / 2.0)), this.screenHeight - yOffset, 16777215);
+					client.font.drawShadow(poseStack, y, (int) ((this.screenWidth / 2) - (y.length() / 2.0)) - (y.length() * 2), this.screenHeight - yOffset, 16777215);
+					client.font.drawShadow(poseStack, z, (((this.screenWidth / 2) - z.length()) + (90 - z.length() * 4)), this.screenHeight - yOffset, 16777215);
+					poseStack.popPose();
 				}
 			}
 		}
