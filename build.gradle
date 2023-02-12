@@ -99,9 +99,9 @@ publishing {
 String getVersion() {
 	String version = "${project.mod_version}+mc${libs.versions.minecraft.get()}"
 
-	if (findProperty("releaseType") != "stable") {
-		version += "-rev.${grgit.head().abbreviatedId}"
-	}
+//	if (findProperty("releaseType") != "stable") {
+//		version += "-rev.${grgit.head().abbreviatedId}"
+//	}
 
 	return version
 

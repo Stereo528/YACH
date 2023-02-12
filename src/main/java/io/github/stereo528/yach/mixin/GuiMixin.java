@@ -35,12 +35,9 @@ public class GuiMixin {
 					String x = "X: " + (int) client.player.getX();
 					String y = "Y: " + (int) client.player.getY();
 					String z = "Z: " + (int) client.player.getZ();
-					int xPlace = (int) (((this.screenWidth / 2) - (x.length() / 2.0)) - (91 - x.length() / 2.0));
-					int yPlace = (int) ((this.screenWidth / 2) - (y.length() / 2.0)) - (y.length() * 2);
-					int zPlace = (((this.screenWidth / 2) - z.length()) + (90 - z.length() * 4));
-					client.font.drawShadow(poseStack, x, xPlace, this.screenHeight - 33, 16777215);
-					client.font.drawShadow(poseStack, y, yPlace, this.screenHeight - 33, 16777215);
-					client.font.drawShadow(poseStack, z, zPlace, this.screenHeight - 33, 16777215);
+					client.font.drawShadow(poseStack, x, (int) (((this.screenWidth / 2) - (x.length() / 2.0)) - (91 - x.length() / 2.0)), this.screenHeight - 33, 16777215);
+					client.font.drawShadow(poseStack, y, (int) ((this.screenWidth / 2) - (y.length() / 2.0)) - (y.length() * 2), this.screenHeight - 33, 16777215);
+					client.font.drawShadow(poseStack, z, (((this.screenWidth / 2) - z.length()) + (90 - z.length() * 4)), this.screenHeight - 33, 16777215);
 					poseStack.popPose();
 				}
 			}

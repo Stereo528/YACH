@@ -6,7 +6,7 @@
 		"version": "${version}",
 		"metadata": {
 			"name": "YACH",
-			"description": "Yet Another Coordinate HUD is a simple mod adding your XYZ coordinates displayed above your hotbar. Has integration for SimpleNotes to auto save your coords to your notes file!",
+			"description": "Yet Another Coordinate HUD is a simple mod adding your XYZ coordinates displayed above your hotbar.",
 			"contributors": {
 				"Stereo528": "Owner"
 			},
