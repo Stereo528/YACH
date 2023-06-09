@@ -19,7 +19,6 @@ dependencies {
 	minecraft libs.minecraft
 
 	mappings loom.layered {
-		mappings "org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:intermediary-v2"
 		officialMojangMappings()
 	}
 	modImplementation libs.quilt.loader
