@@ -43,17 +43,19 @@ public abstract class GuiMixin {
 				}
 				else {
 					assert client.player != null;
+					boolean healthCheck = client.player.hasEffect(MobEffects.HEALTH_BOOST) || client.player.hasEffect(MobEffects.ABSORPTION);
 					int yOffset;
 					if (client.gameMode.getPlayerMode() == GameType.CREATIVE || client.gameMode.getPlayerMode() == GameType.SPECTATOR && !ModConfig.hideInSpectator) {
 						yOffset = 33;
 					} else {
-						yOffset = 50;
-						if (client.player.hasEffect(MobEffects.HEALTH_BOOST) || client.player.hasEffect(MobEffects.ABSORPTION)) yOffset += 15;
-						if (this.toolHighlightTimer > 0 && !this.lastToolHighlight.isEmpty()) {
-							if (client.player.hasEffect(MobEffects.HEALTH_BOOST) || client.player.hasEffect(MobEffects.ABSORPTION)) yOffset += 7;
+						yOffset = 60;
+						if (healthCheck) {
+//							if (client.player.getArmorValue() > 0) yOffset += 5;
+							yOffset += 10;
 						}
-
-
+						if (this.toolHighlightTimer > 0 && !this.lastToolHighlight.isEmpty()) {
+							if(!healthCheck) yOffset += 10;
+						}
 					}
 
 
